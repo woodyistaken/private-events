@@ -1,0 +1,17 @@
+<h1>Past events</h1>
+<%@events.past.each do |event|%>
+<li><%=link_to event.location, event%></li>
+<%end%>
+</ul><br>
+<h1>Upcoming events</h1>
+<%@events.upcoming.each do |event|%>
+<li><%=link_to event.location, event%></li>
+<%end%>
+</ul><br>
+
+<%if user_signed_in?%>
+<%=link_to "Your Account",user_path(current_user)%><br>
+<%=link_to "Sign out", destroy_user_session_path,data: { "turbo-method": :delete }%>
+<%else%>
+<%=link_to "Sign in", new_user_session_path%>
+<%end%>

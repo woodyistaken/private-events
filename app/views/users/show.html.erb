@@ -1,0 +1,14 @@
+<h1>Your events</h1>
+<ul>
+<%@events.each do |event|%>
+<li><%=link_to event.location, event%></li>
+<%end%>
+</ul>
+<h4>Attended Events</h4>
+<ul>
+  <%@user.attended_events.each do |event|%>
+  <li><%=link_to event.location,event%></li>
+  <%end%>
+</ul>
+<%=link_to "Create event",new_event_path%>
+<%=link_to "All Events", events_path%>

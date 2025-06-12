@@ -1,0 +1,17 @@
+<%if !event.errors.empty?%>
+<ul>
+  <%event.errors.each do |error|%>
+  <li><%=error.full_message%></li>
+  <%end%>
+</ul>
+<%end%>
+
+<%=form_with model: event do |form|%>
+  <%=form.label :location, "Location"%>
+  <%=form.text_field :location%>
+
+  <%=form.label :date ,"Date"%>
+  <%=form.date_field :date%>
+
+  <%=form.submit "Submit"%>
+<%end%>

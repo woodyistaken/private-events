@@ -1,0 +1,27 @@
+<h1>Location: <%=@event.location%></h1>
+<h3>Date: <%=@event.date%></h3>
+<p>POC: <%=@event.creator.email%></p>
+<h4>Attendees</h4>
+<ul>
+  <%@event.attendees.each do |attendee|%>
+    <li><%=attendee.email%></li>
+  <%end%>
+</ul>
+
+<%=link_to "All Events", events_path%>
+<%=link_to "Your Events",user_path%>
+<%=link_to "Edit Event",edit_event_path%>
+<%=link_to "Delete Event",@event, data:{"turbo-method": :delete }%>
+<%=link_to "Invite Users",invite_event_path(@event)%>
+<%if user_signed_in? && current_user.attended_events.include?(@event)%>
+
+  <%=form_with method: :delete, url:attendance_path(@event.id)  do |form|%>
+  <%=form.hidden_field :delete_id,value:@event.id%>
+  <%=form.submit "Not Attending Event"%>
+  <%end%>
+<%else%>
+  <%=form_with method: :post, url:attendances_path  do |form|%>
+  <%=form.hidden_field :id,value:@event.id%>
+  <%=form.submit "Attend Event"%>
+  <%end%>
+<%end%>
